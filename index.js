@@ -19,13 +19,13 @@ app.get("/secret", async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "usd",
-      // automatic_payment_methods: { enabled: true },
-      payment_method_types: ["card"],
+      automatic_payment_methods: { enabled: true },
+      // payment_method_types: ["card"],
     });
 
     console.log(paymentIntent);
 
-    res.json({ client_secret: paymentIntent, success: true });
+    res.json({ client_secret: paymentIntent.client_secret, success: true });
   } catch (error) {
     console.error(error);
     res.json({ success: false });
